@@ -1,19 +1,22 @@
+import { connectDB } from './db/db.js';
+import userRouter from './routes/user.routes.js';
 import dotenv from 'dotenv';
 dotenv.config();
 import express from 'express';
 const app = express();
 const port = process.env.PORT || 3000;
-import { connectToDB } from './db/db'
 
-connectToDB();
+connectDB();
 
+app.use(express.json());
 
 
 app.get('/', (req, res) => {
   res.send('Hello World!');
 });
 
+app.use('/user', userRouter);
 
-app.listen(3000, () => {
-  console.log('Example app listening on port 3000!');
+app.listen(port, () => {
+  console.log(`Example app listening on port ${port}`);
 });

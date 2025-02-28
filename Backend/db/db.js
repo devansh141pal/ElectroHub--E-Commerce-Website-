@@ -1,7 +1,7 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
-const connectToDB = () => {
-    console.log("Connect to DB")
+export function connectDB() {
+    mongoose.connect(process.env.DB_CONNECT).then(() => {
+        console.log('Connected to DB');
+    }).catch(err => console.log(err));
 }
-
-export default connectToDB;
