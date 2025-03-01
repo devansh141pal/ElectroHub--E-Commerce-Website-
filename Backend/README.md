@@ -76,6 +76,8 @@
 }
 ```
 
+<br>
+
 ## `user/login` Endpoint
 
 ### Method:
@@ -145,6 +147,8 @@
 }
 ```
 
+<br>
+
 
 
 
@@ -211,6 +215,79 @@
   "errors": [
     {
       "msg": "Seller already exists"
+    }
+  ]
+}
+```
+
+#### If server side of tecnical error:
+
+- Response code: 500
+
+```
+{
+  "errors": [
+    {
+      "msg": "Server error"
+    }
+  ]
+}
+```
+
+<br>
+
+## `seller/login` Endpoint
+
+### Method:
+
+`POST`
+
+### Request:
+
+```
+{
+    "email": "jane.doe@example.com",
+    "password": "password123"
+}
+```
+
+### Response:
+
+#### If the seller exists in database:
+
+- Response code: 200
+
+```
+{
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3YzI2ODJjMDUxNGMzNTUxOGZhNWI4ZiIsImlhdCI6MTc0MDg0MjA0NiwiZXhwIjoxNzQwOTI4NDQ2fQ.CTry7WX6YbbJV_FKPR81Q4ikTqVRJIlg_iGVHRXhn10",
+  "seller": {
+    "fullname": {
+      "firstname": "Jane",
+      "lastname": "Doe"
+    },
+    "_id": "67c2682c0514c35518fa5b8f",
+    "email": "jane.doe@example.com",
+    "password": "$2b$10$CCvgIk32pRPIXECdslHdlu13Pvuvfm90TYI0txAEEiiemQFVABj4e",
+    "upiID": "jane.doe@upi",
+    "phone": "1234567890",
+    "city": "New York",
+    "state": "NY",
+    "country": "USA",
+    "pincode": "100001",
+    "__v": 0
+  }
+}
+```
+
+#### If the seller does not exists in database:
+
+- Response code: 400
+
+```
+{
+  "errors": [
+    {
+      "msg": "Invalid credentials or Unauthorised"
     }
   ]
 }

@@ -1,6 +1,6 @@
 import express from 'express';
 const router = express.Router();
-import { registerSeller } from '../controllers/seller.controller.js';
+import { registerSeller, loginSeller } from '../controllers/seller.controller.js';
 import { body } from 'express-validator';
 
 router.post('/register', [
@@ -15,6 +15,13 @@ router.post('/register', [
     body('pincode').isLength({ min: 6 }).withMessage('Pincode must be at least 6 characters long'),
 ],
     registerSeller
+);
+
+router.post('/login', [
+    body('email').isEmail().withMessage('Email is not valid'),
+    body('password').isLength({ min: 6 }).withMessage('Password must be at least 6 characters long'),
+],
+    loginSeller
 );
 
 
