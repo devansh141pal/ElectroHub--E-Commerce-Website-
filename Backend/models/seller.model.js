@@ -1,8 +1,8 @@
-import mongoose from "mongoose";
-import jwt from "jsonwebtoken";
-import bcrypt from "bcrypt";
+import mongoose from 'mongoose';
+import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 
-const userSchema = new mongoose.Schema({
+const sellerSchema = new mongoose.Schema({
     fullname: {
         firstname: {
             type: String,
@@ -26,6 +26,12 @@ const userSchema = new mongoose.Schema({
         minlength: [6, "Password must be at least 6 characters long"],
         select: false
     },
+    upiID: {
+        type: String,
+        required: true,
+        unique: true,
+        minlength: [6, "UPI ID must be at least 6 characters long"],
+    },
     phone: {
         type: String,
         required: true,
@@ -47,20 +53,26 @@ const userSchema = new mongoose.Schema({
         required: true,
         minlength: [2, "Country must be at least 2 characters long"],
     },
-});
+    pincode: {
+        type: String,
+        required: true,
+        minlength: [6, "Pincode must be at least 6 characters long"],
+    },
 
-userSchema.methods.generateAuthToken = function() {
+})
+
+sellerSchema.methods.generateAuthToken = function() {
     return jwt.sign({ id: this._id }, process.env.JWT_SECRET, {
         expiresIn: process.env.JWT_EXPIRE
     });
 };
 
-userSchema.methods.hashPassword = async function(password) {
+sellerSchema.methods.hashPassword = async function(password) {
     return await bcrypt.hash(password, 10);
-}
+};
 
-userSchema.methods.comparePassword = async function(password) {
+sellerSchema.methods.comparePassword = async function(password) {
     return await bcrypt.compare(password, this.password);
-}
+};
 
-export default mongoose.model("user", userSchema);
+export default mongoose.model("seller", sellerSchema);

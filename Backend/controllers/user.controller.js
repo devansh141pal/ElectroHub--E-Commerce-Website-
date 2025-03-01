@@ -10,7 +10,7 @@ export const registerUser = async (req, res, next) => {
             return res.status(400).json({ errors: errors.array() });
         }
 
-        const { fullname, email, password } = req.body;
+        const { fullname, email, password, phone, city, state, country } = req.body;
 
         const existingUser = await userModel.findOne({ email });
         if (existingUser) {
@@ -23,7 +23,11 @@ export const registerUser = async (req, res, next) => {
             firstname: fullname.firstname,
             lastname: fullname.lastname,
             email,
-            password: hashedPassword
+            password: hashedPassword,
+            phone,
+            city,
+            state,
+            country
         });
 
         const token = user.generateAuthToken();

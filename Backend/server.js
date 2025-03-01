@@ -1,5 +1,6 @@
 import { connectDB } from './db/db.js';
 import userRouter from './routes/user.routes.js';
+import sellerRouter from './routes/seller.routes.js';
 import dotenv from 'dotenv';
 dotenv.config();
 import express from 'express';
@@ -16,6 +17,7 @@ app.get('/', (req, res) => {
 });
 
 app.use('/user', userRouter);
+app.use('/seller', sellerRouter);
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
