@@ -35,6 +35,7 @@ export const registerSeller = async (req, res, next) => {
         return res.status(200).json({ token, seller });
     }
     catch (error) {
-        console.log(error);
+        console.error("Error in registerUser:", error);
+        return res.status(500).json({ errors: [{ msg: "Server error" }] });
     }
 };

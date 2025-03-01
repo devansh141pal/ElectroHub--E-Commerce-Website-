@@ -34,6 +34,35 @@ export const registerUser = async (req, res, next) => {
 
         return res.status(200).json({ token, user });
     } catch (error) {
-        console.log(error);
+        console.error("Error in registerUser:", error);
+        return res.status(500).json({ errors: [{ msg: "Server error" }] });
+    }
+};
+
+export const loginUser = async (req, res, next) => {
+    try {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
+        }
+
+        const { email, password } = req.body;
+
+        const user = await userModel.findOne({ email }).select("+password");
+        if (!user) {
+            return res.status(400).json({ errors: [{ msg: "Invalid credentials or Unauthorised" }] });
+        }
+
+        const isMatch = await bcrypt.compare(password, user.password);
+        if (!isMatch) {
+            return res.status(400).json({ errors: [{ msg: "Invalid credentials or Unauthorised" }] });
+        }
+
+        const token = user.generateAuthToken();
+
+        return res.status(200).json({ token, user });
+    } catch (error) {
+        console.error("Error in loginUser:", error);
+        return res.status(500).json({ errors: [{ msg: "Server error" }] });
     }
 };
