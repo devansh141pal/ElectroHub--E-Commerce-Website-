@@ -67,3 +67,14 @@ export const loginSeller = async (req, res, next) => {
         return res.status(500).json({ errors: [{ msg: "Server error" }] });
     }
 }
+
+export const logoutSeller = async (req, res, next) => {
+    try {
+        req.seller = null;
+        return res.status(200).json({ message: "Seller logged out successfully" });
+    }
+    catch (error) {
+        console.error("Error in logoutSeller:", error);
+        return res.status(500).json({ errors: [{ msg: "Server error" }] });
+    }
+}

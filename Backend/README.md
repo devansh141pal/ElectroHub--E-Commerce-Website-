@@ -62,7 +62,7 @@
 }
 ```
 
-#### If server side of tecnical error:
+#### If server side of technical error:
 
 - Response code: 500
 
@@ -133,7 +133,7 @@
 }
 ```
 
-#### If server side of tecnical error:
+#### If server side of technical error:
 
 - Response code: 500
 
@@ -179,7 +179,7 @@ Bearer: {your_login_token_here}
 }
 ```
 
-#### If server side of tecnical error:
+#### If server side of technical error:
 
 - Response code: 500
 
@@ -270,7 +270,7 @@ Bearer: {your_login_token_here}
 }
 ```
 
-#### If server side of tecnical error:
+#### If server side of technical error:
 
 - Response code: 500
 
@@ -343,7 +343,54 @@ Bearer: {your_login_token_here}
 }
 ```
 
-#### If server side of tecnical error:
+#### If server side of technical error:
+
+- Response code: 500
+
+```
+{
+  "errors": [
+    {
+      "msg": "Server error"
+    }
+  ]
+}
+```
+
+<br>
+
+
+## `seller/logout` Endpoint
+
+### Request:
+
+```
+Bearer: {your_login_token_here}
+```
+
+### Response:
+
+#### If the seller is logged in:
+
+- Response code: 200
+
+```
+{
+  "message": "Seller logged out successfully"
+}
+```
+
+#### If the seller is not logged in:
+
+- Response code: 401
+
+```
+{
+  "message": "Seller is not authenticated"
+}
+```
+
+#### If server side of technical error:
 
 - Response code: 500
 
