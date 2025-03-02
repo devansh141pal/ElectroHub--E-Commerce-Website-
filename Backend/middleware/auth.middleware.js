@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 import userModel from '../models/user.model.js';
-import sellerModel from '../models/seller.model.js'
+import sellerModel from '../models/seller.model.js';
 
 export const authUser = async function (req, res, next) {
     const token = req.header('Authorization').replace('Bearer ', '');
