@@ -149,6 +149,56 @@
 
 <br>
 
+## `user/logout` Endpoint
+
+### Request:
+
+```
+Bearer: {your_login_token_here}
+```
+
+### Response:
+
+#### If the user is logged in:
+
+- Response code: 200
+
+```
+{
+  "message": "User logged out"
+}
+```
+
+#### If the user is not logged in:
+
+- Response code: 401
+
+```
+{
+  "message": "User is not authenticated"
+}
+```
+
+#### If server side of tecnical error:
+
+- Response code: 500
+
+```
+{
+  "errors": [
+    {
+      "msg": "Server error"
+    }
+  ]
+}
+```
+
+
+
+
+
+<br>
+
 
 
 

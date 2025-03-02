@@ -60,9 +60,27 @@ export const loginUser = async (req, res, next) => {
 
         const token = user.generateAuthToken();
 
+        res.cookie("token", token, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === "development",
+            sameSite: "strict",
+            maxAge: 86400000 // 1 day
+        });
+
         return res.status(200).json({ token, user });
     } catch (error) {
         console.error("Error in loginUser:", error);
+        return res.status(500).json({ errors: [{ msg: "Server error" }] });
+    }
+};
+
+export const logoutUser = async (req, res, next) => {
+    try {
+        req.user = null;
+
+        return res.status(200).json({ message: "User logged out" });
+    } catch (error) {
+        console.error("Error in logoutUser:", error);
         return res.status(500).json({ errors: [{ msg: "Server error" }] });
     }
 };
